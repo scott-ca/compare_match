@@ -56,25 +56,22 @@ You can compare files in directories outside of the one the tool is located in, 
 The only other files that are created are files that happen to share the same name as all the file names being used split by either "+"/"-"/"A"/"M" this will vary by any given comparison. These files will also only be created if you choose the "Multiple files exported".
 
 
-As of version 1.31 there is two known bugs. These are both specific to the json file, and can be worked around but wanted them to be known to avoid any confusion.
 
-**KNOWN Bugs**
 
-1)
-- If you export json file with all your settings, you will be unable to re-export the json file.
+**KNOWN Bugs as of version 1.31**
 
--- Temporary workaround: Interim work around is to take a screenshot your settings and re-create the json and then import it and re-export it will work just not update the list display. All relevant settings should be displayed on the main window.
+These are both specific to the json file, and can be worked around but wanted them to be known to avoid any confusion.
 
-2)
-- If you import a json and then import the json file a second time it will duplicate eveything other than the files listed in the file display window.
+• If you export json file with all your settings, you will be unable to re-export the json file.
+
+Temporary workaround: Interim work around is to take a screenshot your settings and re-create the json and then import it and re-export it will work just not update the list display. All relevant settings should be displayed on the main window.
+
+
+• If you import a json and then import the json file a second time it will duplicate eveything other than the files listed in the file display window.
   
- -- Temporary workaround: The json file stays loaded and shouldn't need to reload the same json file. Close the application and re-open if you need to use a different json. 
- -- Alternativly pass the json in via commandline and it will automatically parse and process the request without any gui interaction required
+Temporary workaround: The json file stays loaded and shouldn't need to reload the same json file. Close the application and re-open if you need to use a different json. Alternativly you can pass the json in via commandline and it will automatically parse and process the request without any gui interaction required
 
 
-
-
-
-I am happy to hear any feedback including but not limited to any features that you may like to see added. I won't maky any commitments to add any of the features, however I will review them and should time allow potentially add some of the mentioned features.
+**I am happy to hear any feedback including but not limited to any features that you may like to see added. I won't maky any commitments to add any of the features, however I will review them and should time allow see which features I may be able to implement.**
 
 
