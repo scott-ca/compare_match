@@ -72,6 +72,6 @@ Temporary workaround: Interim work around is to take a screenshot your settings 
 Temporary workaround: The json file stays loaded and shouldn't need to reload the same json file. Close the application and re-open if you need to use a different json. Alternativly you can pass the json in via commandline and it will automatically parse and process the request without any gui interaction required
 
 
-**I am happy to hear any feedback including but not limited to any features that you may like to see added. I won't maky any commitments to add any of the features, however I will review them and should time allow see which features I may be able to implement.**
+**I am happy to hear any feedback including but not limited to any features that you may like to see added. I won't make any commitments to add any of the features, however I will review them and should time allow see which features I may be able to implement.**
 
 
