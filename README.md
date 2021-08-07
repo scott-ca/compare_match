@@ -49,7 +49,7 @@ This file can later be used to return you to the current state and allow you to 
 
 The json file can also be used as an arugment via commandline (no flags required) to automatically load settings and process the required files. This can be done by running "compare_match.py settings.json"
 
-*IMPORTANT note*
+**IMPORTANT note**
 
 You can compare files in directories outside of the one the tool is located in, the same is true for the json file. However, the output files containing the reuslts will be create in the directory it is run from. The three main file names you will want to ensure aren't in the same directory as where this is run from is "cons.csv", "final.csv", "final_filtered.csv". The first two files will always be created, and the cons.csv will be deleted once the comparison is completed. final_filtered.csv is created if you choose to have only specific comparison combinations shown.
 
