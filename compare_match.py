@@ -37,7 +37,14 @@ from pathlib import Path
 from argparse import ArgumentParser
 import os.path
 
-# version 1.31
+# version 1.32
+
+#Changelog 1.32 changes
+# Updated reading in cons as utf-8-sig to ensure everything is forced into that regardless of OS this is being run on as each OS has their own defaults for encoding.
+# Fixed bug where it was applying case sensitive option even if you didn't select it
+# Cells are automatically cleaned for any leading or trailing spaces so that entries match up if one cell has a leading space but the same entry in another document does not.
+# Added docstrings to classes and functions.
+
 
 # KNOWN Bugs
 
@@ -50,23 +57,39 @@ import os.path
 
 
 # TO DO
-#
+# - Add option to convert xlsx to csv. If so maybe have them choose which worksheet to export. or just read in the data directly and choose the worksheet. So if it' a worksheet a tab comes up to select the worksheet. Still from Excel formater on having the worksheet and checking.
 # - Convert use of global variables to being variables passed through to the classes.
 # - Convert using dynamic global variables to using objects.
 
 
+# MEMO to delete before posting
+# Messed up filtered. Either shows nothing or like 1 line then nothing but quotes. Does old version do that or just this versioin that I updated with the reading in cons with utf and doc files
+
+
 root = Tk()
-root.title('Compare Match    v1.3')
+root.title('Compare Match    v1.32')
 
 
-class JSettings: # class for importing and exporting json files
+class JSettings:
+    """
+    This class manages the methods used for importing and exporting json settings file.
+
+    :param fileList: This is the list of files to compare.
+    :param current_column: This is the column headers in each of csv files that contains the data to be compared.
+    """
+
     def __init__(self,fileList,current_column):
         self.fileList = fileList
         self.current_column = current_column
               
     def importj(self, file_location= "", nogui=False): #imports json file. nogui arguement is used if you want to load and immediately submit using a json file
+        """
+        This function imports json file containing the settings saved from a previous session.
         
-        
+        :param file_location: This is the location of the files to import.
+        :param nogui: This is used when loading the json via the commandline and bypassing the gui. If the value is set to False will skip the GUI and automatically process the request after loading the json.
+        """
+                
         global toAddList_nonsymbol
         global fullListfName
         if nogui == False:
@@ -115,8 +138,8 @@ class JSettings: # class for importing and exporting json files
                     
 
   
-    def exportj(self): # exports settings to json file
-
+    def exportj(self):
+        """This function exports the various settings and file lists to a json file."""
 
 
         to_export_current_column = []
@@ -135,12 +158,20 @@ class JSettings: # class for importing and exporting json files
 
       
 
-class InputFiles: #class for loading input files and grabbing initial headers to allow for choice of column to compare
+class InputFiles:
+    """
+    This class for loading input files and grabbing initial headers to allow for choice of column to compare.
+    
+    :param fileList: This is the list of files to compare.
+    :param current_column: This is the column headers in each of csv files that contains the data to be compared.
+    """
+
     def __init__(self,fileList,current_column):
         self.fileList = fileList
         self.current_column = current_column
 
     def load_files(self):
+        """This function is used for loading the files into the file list and allowing you to choose which headers in each csv file you wish to compare. """
         
         new_filez = fd.askopenfilenames(parent=root, title='Choose a file')
 
@@ -186,11 +217,17 @@ class InputFiles: #class for loading input files and grabbing initial headers to
 
 
 
-class ProcessFiles: # class for processing files once submit is choosen
+class ProcessFiles:
+    """This class manages processing the files and doing the comparing of data once the submit button has been clicked.
+
+    :param fileList: This is the list of files to compare
+    """
+    
     def __init__(self, fileList):
         self.fileList = fileList
 
     def processing(self):
+        """This function is for processing the files and comparing the data based on the settings that were previously chosen."""
         
         if machineable_v.get() == 1: 
             in_symbol = "A"
@@ -239,7 +276,7 @@ class ProcessFiles: # class for processing files once submit is choosen
                 globals()['list'+str(lg)] = [] # used to store lists
                 globals()['file'+str(lg)] = fileinput.filename()
                 globals()['file'+str(lg)] = os.path.basename(globals()['file'+str(lg)].replace(".csv",""))
-                globals()['file'+str(lg)] = globals()['file'+str(lg)].lower()       
+                globals()['file'+str(lg)] = globals()['file'+str(lg)].lower()    
                 continue
 
             if case_sensitive_v.get() == 1:    # <---------------------------------------CASE SENSITIVE CHECKBOX
@@ -247,8 +284,8 @@ class ProcessFiles: # class for processing files once submit is choosen
                 globals()['list'+str(lg)].append(line[processing_header_index])
             
             else:    # <---------------------------------------CASE SENSITIVE CHECKBOX   
-                masterList.append(line[processing_header_index])
-                globals()['list'+str(lg)].append(line[processing_header_index])
+                masterList.append(line[processing_header_index].lower().rstrip().lstrip())
+                globals()['list'+str(lg)].append(line[processing_header_index].lower().rstrip().lstrip())
 
         masterSet = set(masterList)
         masterDict = dict.fromkeys(masterSet,"")
@@ -308,7 +345,7 @@ class ProcessFiles: # class for processing files once submit is choosen
 
             consDict[pair[1]].append(pair[0])
 
-        with open('cons.csv', 'w', newline='') as f: # completed compare, but in rows instead of columns
+        with open('cons.csv', 'w', newline='',encoding='utf-8-sig') as f: # completed compare, but in rows instead of columns. Didn't have encoding added before recently added
             c = csv.writer(f)
 
             for key, value in consDict.items():
@@ -316,7 +353,7 @@ class ProcessFiles: # class for processing files once submit is choosen
 
 
         with open('cons.csv') as infile, \
-                open('final.csv', 'w', newline='') as outfile: # transposes rows into columns
+                open('final.csv', 'w', newline='',encoding='utf-8-sig') as outfile: # transposes rows into columns. Didn't have encoding added before recently added
             reader = csv.reader(infile)
             writer = csv.writer(outfile)
 
@@ -359,7 +396,8 @@ class ProcessFiles: # class for processing files once submit is choosen
 
 
 
- 
+
+
         if os.path.exists("cons.csv"): # delete cons.csv was the initial final.csv but in rows. No longer needed once transposed to columns
             os.remove("cons.csv")
         else:
@@ -367,7 +405,9 @@ class ProcessFiles: # class for processing files once submit is choosen
 
 
 
-def get_selection_fileDisplay(): # used to add selections from the file display Listbox to the list box showing the combinations
+def get_selection_fileDisplay():
+    """This function is used for adding the selections from the Listbox field to the second Listbox field showing the different combinations you have selected. """
+
     global AddListIterator
     sel_list = []
     toAddList = ""
