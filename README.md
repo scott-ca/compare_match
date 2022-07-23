@@ -57,7 +57,7 @@ The only other files that are created are files that happen to share the same na
 
 
 
-**KNOWN Bugs as of version 1.31**
+**KNOWN Bugs as of version 1.33**
 
 These are both specific to the json file, and can be worked around but wanted them to be known to avoid any confusion.
 
