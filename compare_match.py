@@ -61,11 +61,6 @@ import os.path
 # - Convert use of global variables to being variables passed through to the classes.
 # - Convert using dynamic global variables to using objects.
 
-
-# MEMO to delete before posting
-# Messed up filtered. Either shows nothing or like 1 line then nothing but quotes. Does old version do that or just this versioin that I updated with the reading in cons with utf and doc files
-
-
 root = Tk()
 root.title('Compare Match    v1.32')
 
