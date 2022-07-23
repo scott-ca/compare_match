@@ -37,13 +37,11 @@ from pathlib import Path
 from argparse import ArgumentParser
 import os.path
 
-# version 1.32
+# version 1.33
 
-#Changelog 1.32 changes
-# Updated reading in cons as utf-8-sig to ensure everything is forced into that regardless of OS this is being run on as each OS has their own defaults for encoding.
-# Fixed bug where it was applying case sensitive option even if you didn't select it
-# Cells are automatically cleaned for any leading or trailing spaces so that entries match up if one cell has a leading space but the same entry in another document does not.
-# Added docstrings to classes and functions.
+#Changelog 1.33 changes
+# Re-removed reading in cons.csv as utf-8-sig to ensure as it caused a weird character to be added to the first header if it was run on windows. Only required on initial reading of data
+# Added examples
 
 
 # KNOWN Bugs
@@ -340,7 +338,7 @@ class ProcessFiles:
 
             consDict[pair[1]].append(pair[0])
 
-        with open('cons.csv', 'w', newline='',encoding='utf-8-sig') as f: # completed compare, but in rows instead of columns. Didn't have encoding added before recently added
+        with open('cons.csv', 'w', newline='') as f: # completed compare, but in rows instead of columns. Didn't have encoding added before recently added
             c = csv.writer(f)
 
             for key, value in consDict.items():
@@ -348,7 +346,7 @@ class ProcessFiles:
 
 
         with open('cons.csv') as infile, \
-                open('final.csv', 'w', newline='',encoding='utf-8-sig') as outfile: # transposes rows into columns. Didn't have encoding added before recently added
+                open('final.csv', 'w', newline='') as outfile: # transposes rows into columns. Didn't have encoding added before recently added
             reader = csv.reader(infile)
             writer = csv.writer(outfile)
 
