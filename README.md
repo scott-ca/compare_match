@@ -1,6 +1,8 @@
 # compare_match
 
-**Summary**
+### **Current version: 1.33**
+
+# **Summary**
 
 compare_match is a tool for comparing multiple csv files with each other providing you with an exported list where the entries in the various csv files exist within each other. The tool does a multi-directional compare with all included files, and not a single file compared to multiple file.
 
@@ -8,7 +10,7 @@ Any settings chosen the tool including file locations can be saved to a json fil
 
 The json file can also be used as an argument via command line (no flags required) to automatically load settings and process the required files.
 
-**Overview**
+# **Overview**
 
 
 When launching the tool you will be provided with a GUI interface similar to the one shown below.
@@ -48,27 +50,30 @@ This file can later be used to return you to the current state and allow you to 
 
 The json file can also be used as an argument via command line (no flags required) to automatically load settings and process the required files. This can be done by running "compare_match.py settings.json"
 
-**IMPORTANT NOTE**
+# **IMPORTANT NOTE**
 
 You can compare files in directories outside of the one the tool is located in, the same is true for the json file. However, the output files containing the results will be create in the directory it is run from. The three main file names you will want to ensure aren't in the same directory as where this is run from is "cons.csv", "final.csv", "final_filtered.csv". The first two files will always be created, and the cons.csv will be deleted once the comparison is completed. final_filtered.csv is created if you choose to have only specific comparison combinations shown.
 
 The only other files that are created are files that happen to share the same name as all the file names being used split by either "+"/"-"/"A"/"M" this will vary by any given comparison. These files will also only be created if you choose the "Multiple files exported".
+**Changelog 1.33 changes**
+-Re-removed reading in cons.csv as utf-8-sig to ensure as it caused a weird character to be added to the first header if it was run on windows. Only required on initial reading of data
+- Added examples
+
+# **Known Bugs**
+
+- If you export json file with all your settings, you will be unable to re-export the json file.
+- Interim work around is to take a screenshot your settings and re-create the json and then import it and re-export it will work just not update the list display. All relevant settings should be displayed on the main window.
+- If you import a json and import the json file a second time it will duplicate eveything other than the files listed in the file display window.
+-  The json file stays loaded and shouldn't need to reload the same json file. Close the application and re-open if you need to use a different json. 
+- Alternativly pass the json in via commandline and it will automatically parse and process the request without any gui interaction required
 
 
+# **TO DO**
+ Add option to convert xlsx to csv. If so maybe have them choose which worksheet to export. or just read in the data directly and choose the worksheet. So if it' a worksheet a tab comes up to select the worksheet. Still from Excel formater on having the worksheet and checking.
+- Convert use of global variables to being variables passed through to the classes.
+- Convert using dynamic global variables to using objects.
+- Add functionality to pull data from SQLite DB. So that you can compare against various CSV data and data you have in a DB
 
-
-**KNOWN Bugs as of version 1.33**
-
-These are both specific to the json file, and can be worked around but wanted them to be known to avoid any confusion.
-
-• If you export json file with all your settings, you will be unable to re-export the json file.
-
-Temporary workaround: Interim work around is to take a screenshot your settings and re-create the json and then import it and re-export it will work just not update the list display. All relevant settings should be displayed on the main window.
-
-
-• If you import a json and then import the json file a second time it will duplicate everything other than the files listed in the file display window.
-  
-Temporary workaround: The json file stays loaded and shouldn't need to reload the same json file. Close the application and re-open if you need to use a different json. Alternatively you can pass the json in via command line and it will automatically parse and process the request without any gui interaction required.
 
 
 **I am happy to hear any feedback including but not limited to any features that you may like to see added. I won't make any commitments to add any of the features, however I will review them and should time allow see which features I may be able to implement.**
