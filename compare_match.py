@@ -58,6 +58,7 @@ import os.path
 # - Add option to convert xlsx to csv. If so maybe have them choose which worksheet to export. or just read in the data directly and choose the worksheet. So if it' a worksheet a tab comes up to select the worksheet. Still from Excel formater on having the worksheet and checking.
 # - Convert use of global variables to being variables passed through to the classes.
 # - Convert using dynamic global variables to using objects.
+# - Add functionality to pull data from SQLite DB. So that you can compare against various CSV data and data you have in a DB
 
 root = Tk()
 root.title('Compare Match    v1.32')
